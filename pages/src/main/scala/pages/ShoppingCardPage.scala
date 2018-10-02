@@ -24,8 +24,9 @@ class ShoppingCardPage(implicit val webDriver: WebDriver) extends BrowserPage {
     
   def products: Seq[Product] =
     tableRowsFromRootElement(table.element, By.tagName("tr")) { element =>
-      val cells =
-        element.findElements(By.tagName("td")).asScala
+
+      val cells = element.findElements(By.tagName("td")).asScala
+
       Product(
         url = cells(0).getText,
         imageURL = cells(1).getText,
