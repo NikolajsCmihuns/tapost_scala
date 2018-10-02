@@ -19,7 +19,7 @@ class AccountLoginPage(implicit protected val webDriver: WebDriver) extends Brow
 
   def clickOnLoginButton(): Unit = safeClick(loginButton)
 
-  def alertMessage(): WebBrowser.Element = cssSelector(".alert-danger").element
+  def alertMessage: WebBrowser.Element = cssSelector(".alert-danger").element
 
   private def emailAddressField = emailField("email")
   private def passwordField = pwdField("password")
