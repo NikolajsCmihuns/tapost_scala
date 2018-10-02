@@ -1,4 +1,4 @@
-package browsers
+package browser
 
 import io.github.bonigarcia.wdm.WebDriverManager
 

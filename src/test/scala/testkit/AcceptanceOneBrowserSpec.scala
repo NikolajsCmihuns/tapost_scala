@@ -1,6 +1,6 @@
 package testkit
 
-import browsers.{ChromeExecutable, CustomizedChromeDriver}
+import browser.{ChromeExecutable, CustomizedChromeDriver}
 import org.openqa.selenium.WebDriver
 import org.scalatest._
 import org.scalatest.concurrent.Eventually

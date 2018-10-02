@@ -1,7 +1,5 @@
 package testkit
 
-package testkit.utils
-
 import com.github.t3hnar.scalax.StringOption
 import com.typesafe.scalalogging.LazyLogging
 import org.openqa.selenium.{By, WebDriver, WebElement}

@@ -1,8 +1,7 @@
-package browsers
+package browser
 
 import java.util
 
-import io.github.bonigarcia.wdm.WebDriverManager
 import org.openqa.selenium.chrome.{ChromeDriver, ChromeOptions}
 import org.openqa.selenium.{UnexpectedAlertBehaviour, WebDriver}
 
