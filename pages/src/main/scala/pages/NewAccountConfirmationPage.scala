@@ -1,8 +1,8 @@
 package pages
 
 import org.openqa.selenium.WebDriver
-import testkit.WebPageUtils._
 import org.scalatest.selenium.WebBrowser._
+import testkit.WebPageUtils._
 
 class NewAccountConfirmationPage(implicit protected val webDriver: WebDriver) extends BrowserPage {
 
