@@ -1,6 +1,6 @@
 package specs
 
-import pages.{TopMenuPage, User}
+import pages.{PersonalDetails, TopMenuPage, User}
 import testkit.AcceptanceOneBrowserSpec
 import testkit.WebPageUtils._
 
@@ -34,8 +34,7 @@ class UserRegistrationSpec extends AcceptanceOneBrowserSpec {
 
     }
 
-    "User must be able to create new account" in {
-
+    "be able to create new account and see registration info" in {
 
       Given("Registration page")
       val topMenu = TopMenuPage.prepare
@@ -52,6 +51,26 @@ class UserRegistrationSpec extends AcceptanceOneBrowserSpec {
       val myAccountPage = topMenu
         .goToLoginPage()
         .login(user.email, user.password)
+
+      And("see information from registration")
+      val myAccountInfoPage = myAccountPage.goToMyAccountInformationPage()
+      eventually {
+        myAccountInfoPage.personalDetails mustBe PersonalDetails.from(user)
+      }
+    }
+
+    "can not login without credentials" in {
+
+      Given("Login page")
+      val loginPage = TopMenuPage.prepare.goToLoginPage()
+
+      When("user tries to login without entering credentials")
+      loginPage.clickOnLoginButton()
+
+      Then("alert message is displayed")
+      waitUntilDisplayed(
+        loginPage.alertMessage,
+        "alert message was not displayed")
 
     }
   }
