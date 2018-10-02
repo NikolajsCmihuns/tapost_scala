@@ -1,4 +1,4 @@
-ThisBuild / name := "tapost_scala"
+ThisBuild / name := "tapost"
 ThisBuild / version := "0.1"
 ThisBuild / scalaVersion := "2.12.7"
 ThisBuild / concurrentRestrictions in Global := Seq(Tags.limit(Tags.Test, 10))
