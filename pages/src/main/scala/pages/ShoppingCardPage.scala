@@ -1,12 +1,11 @@
 package pages
 
+import ShoppingCardPage._
+import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.scalatest.selenium.WebBrowser._
-import testkit.StringUtils._
-import testkit.WebPageUtils._
-import org.openqa.selenium.By
-import ShoppingCardPage._
 import scala.collection.JavaConverters._
+import testkit.WebPageUtils._
 
 class ShoppingCardPage(implicit val webDriver: WebDriver) extends BrowserPage {
   
