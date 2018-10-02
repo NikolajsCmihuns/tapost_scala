@@ -1,37 +1,53 @@
-name := "tapost_scala"
+ThisBuild / name := "tapost_scala"
+ThisBuild / version := "0.1"
+ThisBuild / scalaVersion := "2.12.7"
+ThisBuild / concurrentRestrictions in Global := Seq(Tags.limit(Tags.Test, 10))
 
-version := "0.1"
+lazy val root = (project in file("."))
+  .aggregate(specs)
+  .dependsOn(specs)
 
-scalaVersion := "2.12.7"
+lazy val browser = (project in file("browser"))
+  .settings(
+    libraryDependencies ++= Seq(
+      "org.seleniumhq.selenium" % "selenium-java" % "3.14.0",
+	  "org.seleniumhq.selenium" % "selenium-chrome-driver" % "3.14.0",
+	  "org.seleniumhq.selenium" % "selenium-firefox-driver" % "3.14.0",
+	  "io.github.bonigarcia" % "webdrivermanager" % "3.0.0"
+    )
+  )
 
-concurrentRestrictions in Global := Seq(Tags.limit(Tags.Test, 10))
+lazy val testkit = (project in file("testkit"))
+  .aggregate(browser)
+  .dependsOn(browser)
+  .settings(
+    libraryDependencies ++= Seq(
+      "org.pegdown" % "pegdown" % "1.6.0",
+	  "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2",
+	  "org.scalatest" %% "scalatest" % "3.0.5",
+  	  "com.github.t3hnar" %% "scalax" % "3.4",
+	  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0"
+	)
+  )
 
-javaOptions in Test ++= sys.props.toSeq map { case (key, value) => s"-D$key=$value" }
-
-testOptions in Test := Seq(
-  Tests.Argument(TestFrameworks.ScalaTest, "-h"),
-  Tests.Argument(TestFrameworks.ScalaTest, "target/test-reports-html"),
-  Tests.Argument(TestFrameworks.ScalaTest, "-u"),
-  Tests.Argument(TestFrameworks.ScalaTest, "target/test-reports"),
-  Tests.Argument(TestFrameworks.ScalaTest, "-oDF")
-)
-
-logBuffered := true // this is needed to make sure the logs of parallel tests are not mixed up
-
-libraryDependencies ++= Seq(
-  "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
-  "org.scalatest" %% "scalatest" % "3.0.5" % Test,
-  "org.seleniumhq.selenium" % "selenium-java" % "3.14.0" % Test,
-  "org.seleniumhq.selenium" % "selenium-chrome-driver" % "3.14.0" % Test,
-  "org.seleniumhq.selenium" % "selenium-firefox-driver" % "3.14.0" % Test,
-  "io.github.bonigarcia" % "webdrivermanager" % "3.0.0" % Test,
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0" % Test,
-  "org.pegdown" % "pegdown" % "1.6.0" % Test,
-  "com.github.t3hnar" %% "scalax" % "3.4"
-) map excludeLog4j
-
-def excludeLog4j(moduleID: ModuleID): ModuleID = moduleID excludeAll(
-  ExclusionRule("log4j", "log4j"),
-  ExclusionRule("org.slf4j", "slf4j-log4j12"),
-  ExclusionRule("commons-logging", "commons-logging")
-)
+lazy val pages = (project in file("pages"))
+  .aggregate(testkit)
+  .dependsOn(testkit)
+  .settings(
+    libraryDependencies ++= Seq(
+	  "org.scalatest" %% "scalatest" % "3.0.5"
+	)
+  )
+  
+lazy val specs = (project in file("specs"))
+  .aggregate(pages)
+  .dependsOn(pages)
+  .settings(
+    testOptions in Test := Seq(
+	  Tests.Argument(TestFrameworks.ScalaTest, "-h"),
+	  Tests.Argument(TestFrameworks.ScalaTest, "target/test-reports-html"),
+	  Tests.Argument(TestFrameworks.ScalaTest, "-u"),
+	  Tests.Argument(TestFrameworks.ScalaTest, "target/test-reports"),
+	  Tests.Argument(TestFrameworks.ScalaTest, "-oDF")
+	)
+  )
