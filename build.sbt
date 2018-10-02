@@ -2,7 +2,7 @@ name := "tapost_scala"
 
 version := "0.1"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.7"
 
 concurrentRestrictions in Global := Seq(Tags.limit(Tags.Test, 10))
 
@@ -21,13 +21,13 @@ logBuffered := true // this is needed to make sure the logs of parallel tests ar
 libraryDependencies ++= Seq(
   "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
   "org.scalatest" %% "scalatest" % "3.0.5" % Test,
-  "org.seleniumhq.selenium" % "selenium-java" % "3.11.0" % Test,
-  "org.seleniumhq.selenium" % "selenium-chrome-driver" % "3.11.0" % Test,
-  "org.seleniumhq.selenium" % "selenium-firefox-driver" % "3.11.0" % Test,
-  "io.github.bonigarcia" % "webdrivermanager" % "2.2.0" % Test,
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.8.0" % Test,
+  "org.seleniumhq.selenium" % "selenium-java" % "3.14.0" % Test,
+  "org.seleniumhq.selenium" % "selenium-chrome-driver" % "3.14.0" % Test,
+  "org.seleniumhq.selenium" % "selenium-firefox-driver" % "3.14.0" % Test,
+  "io.github.bonigarcia" % "webdrivermanager" % "3.0.0" % Test,
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0" % Test,
   "org.pegdown" % "pegdown" % "1.6.0" % Test,
-  "com.github.t3hnar" %% "scalax" % "3.3"
+  "com.github.t3hnar" %% "scalax" % "3.4"
 ) map excludeLog4j
 
 def excludeLog4j(moduleID: ModuleID): ModuleID = moduleID excludeAll(

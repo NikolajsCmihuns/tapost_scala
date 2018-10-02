@@ -2,7 +2,7 @@ package testkit
 
 import org.openqa.selenium.WebDriver
 import org.scalatest.{Outcome, TestSuite, TestSuiteMixin}
-import testkit.ScreenShotUtil.makeScreenShot
+import ScreenShotUtil.makeScreenShot
 
 trait ScreenshotWhenOver extends TestSuiteMixin {
 
