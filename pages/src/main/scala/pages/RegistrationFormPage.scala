@@ -5,36 +5,44 @@ import org.scalatest.selenium.WebBrowser._
 import testkit.StringUtils._
 import testkit.WebPageUtils._
 
-class RegistrationFormPage(implicit val webDriver: WebDriver) extends BrowserPage {
+class RegistrationFormPage(implicit protected val webDriver: WebDriver) extends BrowserPage {
 
-  override def pageIsReady: Any = elementDisplayed(ContinueButton)
+  private def FirstName = id("input-firstname")
+  private def LastName = id("input-lastname")
+  private def Email = id("input-email")
+  private def TelephoneNumber = id("input-telephone")
+  private def Password = id("input-password")
+  private def ConfirmPassword = id("input-confirm")
+  private def SubscribeToNewsletter = name("")
+  private def AgreeCheckBox = name("agree")
+  private def ContinueButton = cssSelector("[value='Continue']")
 
-  private val FirstName = textField("input-firstname")
-  private val LastName = textField("input-lastname")
-  private val Email = textField("input-email")
-  private val TelephoneNumber = textField("input-telephone")
-  private val Password = textField("input-password")
-  private val ConfirmPassword = textField("input-confirm")
-  private val SubscribeToNewsletter = radioButton("")
-  private val AgreeCheckBox = checkbox("agree")
-  private val ContinueButton = cssSelector("[value='Continue']")
+  override def pageIsReady: Boolean = elementDisplayed(FirstName)
 
+  def registerNewUser(): NewAccountConfirmationPage = {
+    val user = User.newUser()
 
-
-  def registerNewUser() = {
-    val user = User.newUser(false)
-
-    FirstName.value_=(user.firstName)
-    LastName.value_=(user.lastName)
-    Email.value_=(user.email)
-    TelephoneNumber.value_=(user.telephone)
-    Password.value_=(user.password)
-    ConfirmPassword.value_=(user.password)
-    AgreeCheckBox.select()
+    textField(FirstName).value_=(user.firstName)
+    textField(LastName).value_=(user.lastName)
+    emailField(Email).value_=(user.email)
+    telField(TelephoneNumber).value_=(user.telephone)
+    pwdField(Password).value_=(user.password)
+    pwdField(ConfirmPassword).value_=(user.password)
+    checkbox(AgreeCheckBox).select()
     safeClick(ContinueButton)
-
+    new NewAccountConfirmationPage
   }
 }
+
+/**
+  *
+  * @param firstName  First Name must be between 1 and 32 characters!
+  * @param lastName Last Name must be between 1 and 32 characters!
+  * @param email E-Mail Address does not appear to be valid!
+  * @param telephone Telephone must be between 3 and 32 characters!
+  * @param password Password must be between 4 and 20 characters!
+  * @param subscribeToNewsLetter
+  */
 
 case class User(
   firstName: String,

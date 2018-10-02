@@ -1,5 +1,7 @@
 package pages
 
-class MainPage {
+object MainPage {
+
+  val url = "http://demoshop24.com"
 
 }
