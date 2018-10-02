@@ -7,31 +7,42 @@ import testkit.WebPageUtils._
 
 class RegistrationFormPage(implicit protected val webDriver: WebDriver) extends BrowserPage {
 
-  private def FirstName = id("input-firstname")
-  private def LastName = id("input-lastname")
-  private def Email = id("input-email")
-  private def TelephoneNumber = id("input-telephone")
-  private def Password = id("input-password")
-  private def ConfirmPassword = id("input-confirm")
-  private def SubscribeToNewsletter = name("")
-  private def AgreeCheckBox = name("agree")
-  private def ContinueButton = cssSelector("[value='Continue']")
+  private def firstNameQuery = id("input-firstname")
+  private def lastNameQuery = id("input-lastname")
+  private def emailQuery = id("input-email")
+  private def telephoneNumberQuery = id("input-telephone")
+  private def passwordQuery = id("input-password")
+  private def confirmPasswordQuery = id("input-confirm")
+  private def subscribeToNewsletterQuery = name("")
+  private def subscribeNoQuery = cssSelector("input[value='1']")
+  private def agreeCheckQuery = name("agree")
+  private def continueButtonQuery = cssSelector("[value='Continue']")
 
-  override def pageIsReady: Boolean = elementDisplayed(FirstName)
+  override def pageIsReady: Boolean = elementDisplayed(firstNameQuery)
 
-  def registerNewUser(): NewAccountConfirmationPage = {
-    val user = User.newUser()
-
-    textField(FirstName).value_=(user.firstName)
-    textField(LastName).value_=(user.lastName)
-    emailField(Email).value_=(user.email)
-    telField(TelephoneNumber).value_=(user.telephone)
-    pwdField(Password).value_=(user.password)
-    pwdField(ConfirmPassword).value_=(user.password)
-    checkbox(AgreeCheckBox).select()
-    safeClick(ContinueButton)
+  def register(user: User): NewAccountConfirmationPage = {
+    firtsNameField.value_=(user.firstName)
+    lastNameField.value_=(user.lastName)
+    emailInputField.value_=(user.email)
+    telephoneField.value_=(user.telephone)
+    passwordField.value_=(user.password)
+    confirmPasswordField.value_=(user.password)
+    agreeCheckBox.select()
+    safeClick(continueButtonQuery)
     new NewAccountConfirmationPage
   }
+
+  def firtsNameField = textField(firstNameQuery)
+  def lastNameField = textField(lastNameQuery)
+  def emailInputField = emailField(emailQuery)
+  def telephoneField = telField(telephoneNumberQuery)
+  def passwordField = pwdField(passwordQuery)
+  def confirmPasswordField = pwdField(confirmPasswordQuery)
+  def subscribeNoRadio = radioButton(subscribeNoQuery)
+  def agreeCheckBox = checkbox(agreeCheckQuery)
+
+
+
 }
 
 /**

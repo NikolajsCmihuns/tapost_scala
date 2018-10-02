@@ -8,6 +8,8 @@ class TopMenuPage(implicit protected val webDriver: WebDriver) extends BrowserPa
 
   private val MyAccount = linkText("My Account")
   private val Register = linkText("Register")
+  private val Logout = linkText("Logout")
+  private val Login = linkText("Login")
 
   override def pageIsReady: Boolean = true
 
@@ -15,6 +17,18 @@ class TopMenuPage(implicit protected val webDriver: WebDriver) extends BrowserPa
     safeClick(MyAccount)
     safeClick(Register)
     new RegistrationFormPage
+  }
+
+  def goToLoginPage(): AccountLoginPage = {
+    safeClick(MyAccount)
+    safeClick(Login)
+    new AccountLoginPage
+  }
+
+  def logout(): AccountLogoutPage = {
+    safeClick(MyAccount)
+    safeClick(Logout)
+    new AccountLogoutPage
   }
 
 }

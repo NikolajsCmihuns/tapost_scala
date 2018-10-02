@@ -276,7 +276,7 @@ object WebPageUtils extends Eventually with SpecPatienceConfig with LazyLogging 
   )
 
   private val extendedPatienceConfig: PatienceConfig = PatienceConfig(
-    timeout = scaled(Span(15, Seconds)),
+    timeout = scaled(Span(5, Seconds)),
     interval = scaled(Span(500, Millis))
   )
 
