@@ -34,7 +34,7 @@ class EditAccountSpec
 
       def profilePage = new EditProfilePage()
 
-      When("name, last name, email and phone is changed")
+      When("name, last name and phone is changed")
       profilePage.updateUserFirstName(newFirstName)
       profilePage.updateUserLastName(newLastName)
       profilePage.updateUserPhone(newPhone)

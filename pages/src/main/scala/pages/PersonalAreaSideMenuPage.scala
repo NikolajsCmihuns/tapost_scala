@@ -12,24 +12,24 @@ trait PersonalAreaSideMenuPage extends BrowserPage {
 
   private def sideMenuSelector = id("column-right").element
 
-  private def myAccount: Option[WebElement] = underlyingWebElement(sideMenuSelector, By.linkText("My Account"))
+  protected def myAccount: Option[WebElement] = underlyingWebElement(sideMenuSelector, By.linkText("My Account"))
   protected def editAccount: Option[WebElement] =
     underlyingWebElement(sideMenuSelector, By.linkText("Edit Account"))
-  private def password =
+  protected def password =
     underlyingWebElement(sideMenuSelector, By.linkText("Password"))
   // !!! this is a bug - address book displaying is not stated in requirements
-  private def addressBook =
+  protected def addressBook =
     underlyingWebElement(sideMenuSelector, By.linkText("Address Book"))
-  private def wishList =
+  protected def wishList =
     underlyingWebElement(sideMenuSelector, By.linkText("Wish List"))
-  private def orderHistory =
+  protected def orderHistory =
     underlyingWebElement(sideMenuSelector, By.linkText("Order History"))
-  private def downloads = linkText("Downloads")
-  private def returns = linkText("Returns")
-  private def logout = linkText("Logout")
-  private def newsLetter = linkText("Newsletter")
-  private def rewardPoints = linkText("Reward Points")
-  private def reccuringPayments = linkText("Reccuring payments")
-  private def transactions = linkText("Transactions")
+  protected def downloads = linkText("Downloads")
+  protected def returns = linkText("Returns")
+  protected def logout = linkText("Logout")
+  protected def newsLetter = linkText("Newsletter")
+  protected def rewardPoints = linkText("Reward Points")
+  protected def reccuringPayments = linkText("Reccuring payments")
+  protected def transactions = linkText("Transactions")
 
 }

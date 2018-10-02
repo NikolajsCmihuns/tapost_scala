@@ -13,6 +13,9 @@ class TopMenuPage(implicit protected val webDriver: WebDriver) extends BrowserPa
   private val Logout = linkText("Logout")
   private val Login = linkText("Login")
 
+  def goToHomePage = go to MainPage.url
+  def goToMyAccountPage = go to MainPage.url + "/index.php?route=account/account"
+
   override def pageIsReady: Boolean = true
 
   def goToRegisterPage(): RegistrationFormPage = {
