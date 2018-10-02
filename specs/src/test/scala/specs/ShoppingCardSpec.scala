@@ -2,6 +2,7 @@ package specs
 
 import pages.{TopMenuPage, User}
 import testkit.AcceptanceOneBrowserSpec
+import testkit.WebPageUtils._
 
 class ShoppingCardSpec extends AcceptanceOneBrowserSpec {
 
@@ -13,7 +14,13 @@ class ShoppingCardSpec extends AcceptanceOneBrowserSpec {
       val loginPage = topMenuPage.goToLoginPage()
       val myAccountPage = loginPage.login(user.email, user.password)
 
-      topMenuPage.goToLoginPage()
+      val pcProductPage = topMenuPage.goToPCproductPage()
+
+      waitUntil(
+        pcProductPage.getAllProducts().nonEmpty,
+      "No products were shown on Desctop page")
+
+      val someProduct = pcProductPage.getAllProducts().head
 
     }
 

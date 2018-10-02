@@ -12,11 +12,6 @@ class TopMenuPage(implicit protected val webDriver: WebDriver) extends BrowserPa
   private val Register = linkText("Register")
   private val Logout = linkText("Logout")
   private val Login = linkText("Login")
-  
-  private def table =
-    xpath("//div[@id='content']//div[contains(@class,'product-thumb')]")
-  private def row(productName: String) =
-    xpath(s"${table.queryString}/")
 
   override def pageIsReady: Boolean = true
 
@@ -36,9 +31,6 @@ class TopMenuPage(implicit protected val webDriver: WebDriver) extends BrowserPa
         priceWithoutTax = ""
       )
     }
-  
-  private def addToCart(productName: String) =
-    xpath(s"${row(productName).queryString}//button[@data-original-title='Update']")
 
   def goToLoginPage(): AccountLoginPage = {
     safeClick(MyAccount)
@@ -46,11 +38,25 @@ class TopMenuPage(implicit protected val webDriver: WebDriver) extends BrowserPa
     new AccountLoginPage
   }
 
+  def goToPCproductPage(): PCproductPage = {
+    safeClick(linkText("Desktops"))
+    safeClick(linkText("Show All Desktops"))
+    new PCproductPage
+  }
+
   def logout(): AccountLogoutPage = {
     safeClick(MyAccount)
     safeClick(Logout)
     new AccountLogoutPage
   }
+
+  private def addToCart(productName: String) =
+    xpath(s"${row(productName).queryString}//button[@data-original-title='Update']")
+
+  private def table =
+    xpath("//div[@id='content']//div[contains(@class,'product-thumb')]")
+  private def row(productName: String) =
+    xpath(s"${table.queryString}/")
 
 }
 

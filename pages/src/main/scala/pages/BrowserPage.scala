@@ -9,7 +9,7 @@ trait BrowserPage extends Eventually with MustMatchers with InternalPagePatience
 
   waitUntil(
     pageIsReady,
-    "Page was not ready"
+    s"Page was not ready"
   )
 
   def pageIsReady: Boolean
