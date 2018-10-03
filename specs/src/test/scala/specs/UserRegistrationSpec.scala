@@ -59,7 +59,7 @@ class UserRegistrationSpec extends AcceptanceOneBrowserSpec {
       }
     }
 
-    "can not login without credentials" in {
+    "not login without credentials" in {
 
       Given("Login page")
       val loginPage = TopMenuPage.prepare.goToLoginPage()

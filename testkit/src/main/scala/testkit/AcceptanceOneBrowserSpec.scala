@@ -15,6 +15,7 @@ trait AcceptanceOneBrowserSpec extends WordSpec
   with OptionValues
   with GivenWhenThen
   with BeforeAndAfterAll
+  with BeforeAndAfterEach
   with ChromeFactory
   with ChromeExecutable
   with OneBrowserPerSuite
@@ -24,6 +25,12 @@ trait AcceptanceOneBrowserSpec extends WordSpec
 
   override def createWebDriver(): WebDriver = {
     CustomizedChromeDriver.createWebDriver()
+  }
+
+  override def beforeEach(): Unit = {
+    deleteAllCookies()
+    reloadPage()
+    super.beforeEach()
   }
 
   override def afterAll = {
